@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Melaka Food Guide – Halal & Non-Halal</title>
+  <style>
+    :root{
+      --bg: #0b1020;         /* deep navy */
+      --card: #121936;       /* indigo */
+      --muted: #93a4c4;      /* muted text */
+      --text: #eaf0ff;       /* main text */
+      --accent: #66e0a3;     /* mint */
+      --accent-2: #8ec5ff;   /* sky */
+      --warn: #ffd166;       /* amber */
+      --danger: #ff7b7b;     /* coral */
+      --ring: rgba(142,197,255,.35);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background: radial-gradient(1200px 600px at 20% -10%, #1a2454 0%, transparent 60%),
+                                  radial-gradient(800px 600px at 120% 10%, #10204d 0%, transparent 60%),
+                                  var(--bg);
+      color:var(--text); font: 16px/1.55 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    }
+    header{
+      position:sticky; top:0; z-index:9;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(10,16,32,.85), rgba(10,16,32,.55));
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .container{max-width:1120px; margin:0 auto; padding:20px}
+    .row{display:flex; gap:12px; flex-wrap:wrap; align-items:center}
+    .title{font-size: clamp(22px, 3.5vw, 34px); font-weight:800; letter-spacing:.3px}
+    .muted{color:var(--muted)}
+    .chip{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; background:#0f1733; border:1px solid rgba(255,255,255,.06)}
+    .chip .dot{width:8px;height:8px;border-radius:50%}
+    .dot.halal{background:var(--accent)}
+    .dot.non{background:var(--danger)}
+    input[type="search"], select{
+      width:100%; padding:12px 14px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background:#0c1533; color:var(--text);
+      outline:none; box-shadow:none;
+    }
+    input[type="search"]:focus, select:focus{border-color:var(--accent-2); box-shadow:0 0 0 4px var(--ring)}
+
+    .tabs{display:flex; gap:10px; flex-wrap:wrap}
+    .tab{padding:10px 14px; border-radius:999px; border:1px solid rgba(255,255,255,.12); background:#0c1533; color:var(--text); cursor:pointer; user-select:none}
+    .tab.active{background:linear-gradient(180deg,#15306a,#0f2458); border-color:rgba(142,197,255,.5); box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 8px 20px rgba(0,0,0,.3)}
+
+    .grid{display:grid; grid-template-columns: repeat(auto-fill,minmax(280px,1fr)); gap:16px; margin-top:14px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.08);
+          border-radius: var(--radius); overflow:hidden; box-shadow: var(--shadow); display:flex; flex-direction:column}
+    .thumb{position:relative; aspect-ratio: 16/9; background:#0b1736; overflow:hidden}
+    .thumb img{width:100%; height:100%; object-fit:cover; display:block}
+    .badge{position:absolute; top:10px; left:10px; padding:6px 10px; border-radius:10px; font-size:12px; font-weight:700}
+    .badge.halal{background:rgba(102,224,163,.2); color:#b8ffd8; border:1px solid rgba(102,224,163,.45)}
+    .badge.non{background:rgba(255,123,123,.18); color:#ffd1d1; border:1px solid rgba(255,123,123,.4)}
+    .content{padding:14px}
+    .dish{font-weight:800; font-size:18px; margin:0 0 6px}
+    .desc{color:var(--muted); margin:0 0 10px}
+    .where{display:flex; align-items:center; gap:8px; margin:8px 0}
+    .where strong{font-weight:700}
+    .meta{display:grid; gap:6px; font-size:14px; color:var(--muted)}
+    .meta a{color:#cfe5ff; text-decoration:none}
+    .meta a:hover{text-decoration:underline}
+
+    .toolbar{display:grid; grid-template-columns: 1fr 140px 140px; gap:10px; margin-top:10px}
+    @media (max-width:700px){ .toolbar{grid-template-columns: 1fr; } }
+
+    footer{opacity:.8; padding:30px 0 60px}
+    .tiny{font-size:12px; color:var(--muted)}
+    .lang-toggle{display:flex; gap:8px; padding:4px; border-radius:999px; background:#0c1533; border:1px solid rgba(255,255,255,.12)}
+    .lang-toggle button{border:0; background:transparent; color:var(--text); padding:8px 12px; border-radius:999px; cursor:pointer}
+    .lang-toggle button.active{background:linear-gradient(180deg,#16316e,#10265f)}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="row" style="justify-content:space-between">
+        <div class="row" style="gap:14px">
+          <div class="title">Melaka Food Guide</div>
+          <div class="chip"><span class="dot halal"></span><span data-i18n="halal">Halal</span></div>
+          <div class="chip"><span class="dot non"></span><span data-i18n="nonHalal">Non-Halal</span></div>
+        </div>
+        <div class="lang-toggle" role="tablist" aria-label="Language">
+          <button id="lang-en" class="active" aria-pressed="true">EN</button>
+          <button id="lang-ms" aria-pressed="false">BM</button>
+        </div>
+      </div>
+      <div class="toolbar">
+        <input id="q" type="search" placeholder="Search dishes, restaurants, streets…" aria-label="Search"/>
+        <select id="time">
+          <option value="any">Any time</option>
+          <option value="morning">Morning</option>
+          <option value="day">Daytime</option>
+          <option value="evening">Evening/Night</option>
+        </select>
+        <select id="sort">
+          <option value="name">Sort: A → Z</option>
+          <option value="area">Sort: Street</option>
+        </select>
+      </div>
+      <div class="tabs" style="margin-top:12px">
+        <div class="tab active" data-tab="all" role="button">All</div>
+        <div class="tab" data-tab="halal" role="button">Halal</div>
+        <div class="tab" data-tab="non" role="button">Non-Halal</div>
+        <div class="tab" data-tab="night" role="button">Night Market</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div id="grid" class="grid" aria-live="polite"></div>
+
+    <footer>
+      <div class="tiny">
+        Tip: Click an address to open Google Maps. Images are placeholders; replace <code>image</code> URLs in the data section to show real restaurant pictures. UI language toggles English ↔ Bahasa Melayu.
+      </div>
+    </footer>
+  </main>
+
+  <script>
+  // ------------------ i18n (UI labels only) ------------------
+  const I18N = {
+    en: {
+      halal: 'Halal', nonHalal: 'Non-Halal', address:'Address', open:'Opening Hours', where:'Where to try', soldout:'(closes when sold out)'
+    },
+    ms: {
+      halal: 'Halal', nonHalal: 'Bukan Halal', address:'Alamat', open:'Waktu Operasi', where:'Tempat dicuba', soldout:'(tutup jika habis)'
+    }
+  };
+  let LANG = 'en';
+  function applyI18N(){
+    document.querySelectorAll('[data-i18n]').forEach(el=>{
+      const k = el.getAttribute('data-i18n');
+      el.textContent = I18N[LANG][k] ?? el.textContent;
+    });
+  }
+
+  // ------------------ Data ------------------
+  // Helper: quick tagger
+  const night = (addr)=>/Night Market|Fri-Sun/i.test(addr);
+  const daySlot = (hrs)=>{
+    const h = hrs.toLowerCase();
+    return {
+      morning: /(5:|6 |7 |8 |9 |10 ).*(am)/.test(h),
+      day: /(10|11|12) am|1|2|3|4|5 pm/.test(h) || /day/i.test(h),
+      evening: /(6|7|8|9|10|11|12) pm|night|evening/.test(h)
+    }
+  }
+
+  const HALAL = [
+    {dish:'Chicken Rice Balls', desc:'Sticky rice balls with poached chicken and chili sauce—Melaka’s signature.', where:'Chung Wah Chicken Rice (RM8-12).', addr:'18, Jalan Hang Jebat, 75200 Melaka', hrs:'10 AM-3 PM, daily (closed when sold out)'} ,
+    {dish:'Nyonya Laksa', desc:'Creamy, spicy coconut noodle soup with prawns and fish cake.', where:'Jonker 88 (RM10, Nyonya).', addr:'88, Jalan Hang Jebat, 75200 Melaka', hrs:'11 AM-10 PM, daily'},
+    {dish:'Cendol', desc:'Shaved ice with pandan jelly, gula melaka, and coconut milk.', where:'Jonker 88 (RM5; same spot, quick dessert).', addr:'88, Jalan Hang Jebat, 75200 Melaka', hrs:'11 AM-10 PM, daily'},
+    {dish:'Asam Pedas', desc:'Sour-spicy fish curry with rice, often with stingray.', where:'Asam Pedas Selera Kampung (RM15; nearby, authentic).', addr:'7, Jalan Kampung Hulu, 75200 Melaka', hrs:'11 AM-8 PM, daily (closed Mondays)'} ,
+    {dish:'Kuih Nyonya', desc:'Colorful Peranakan sweets like onde-onde or kuih lapis.', where:'Baba Charlie Nyonya Cake (RM2-5; takeaway stall).', addr:'72, Jalan Tengkera Pantai 2C, 75200 Melaka', hrs:'9 AM-5 PM, daily'},
+    {dish:'Satay', desc:'Grilled chicken or beef skewers with peanut sauce.', where:'Jonker Walk Night Market (RM1-2/stick; halal stalls).', addr:'Jalan Hang Jebat, 75200 Melaka (night market, Fri-Sun)', hrs:'6 PM-12 AM, Fri-Sun'},
+    {dish:'Mee Goreng', desc:'Spicy stir-fried noodles with prawns or chicken.', where:'Medan Selera Jonker Walk (RM8; night market stall).', addr:'Jalan Hang Jebat, 75200 Melaka (night market, Fri-Sun)', hrs:'6 PM-12 AM, Fri-Sun'},
+    {dish:'Ikan Bakar', desc:'Grilled fish with sambal belacan, served with air asam (tamarind dip).', where:'Warung Ikan Bakar Umbai (RM15-20; 5-min walk, seafood haven).', addr:'10, Jalan Kampung Hulu, 75200 Melaka', hrs:'5 PM-10 PM, daily'},
+    {dish:'Rojak Mamak', desc:'Spicy fruit-vegetable salad with shrimp paste and peanuts.', where:'Jonker Walk Night Market (RM6; halal stall near Jalan Hang Lekir).', addr:'Jalan Hang Jebat, near Jalan Hang Lekir, 75200 Melaka (night market, Fri-Sun)', hrs:'6 PM-12 AM, Fri-Sun'},
+    {dish:'Otak-Otak', desc:'Spicy fish paste grilled in banana leaves—Nyonya style.', where:'Ole Sayang (RM8 for 3; pork-free Nyonya eatery).', addr:'198, Jalan Hang Jebat, 75200 Melaka', hrs:'11 AM-9 PM, daily (closed Tuesdays)'} ,
+    {dish:'Nasi Lemak Ayam Berempah', desc:'Coconut rice with spicy fried chicken and sambal.', where:'Restoran Hajjah Mona (RM10; traditional Malay).', addr:'6, Jalan Hang Kasturi, 75200 Melaka', hrs:'8 AM-8 PM, daily'},
+    {dish:'Popiah Basah', desc:'Fresh spring rolls with turnip, shrimp, and chili sauce.', where:'Medan Selera Jonker Walk (RM5; halal stall).', addr:'Jalan Hang Jebat, 75200 Melaka (night market, Fri-Sun)', hrs:'6 PM-12 AM, Fri-Sun'},
+    {dish:'Sotong Kangkung', desc:'Cuttlefish and water spinach with sweet-spicy peanut sauce.', where:'Restoran Nyonya Suan (RM12; cozy Nyonya spot).', addr:'23, Jalan Hang Lekiu, 75200 Melaka', hrs:'11:30 AM-9 PM, daily'},
+    {dish:'Prawn Fritters (Cucur Udang)', desc:'Crispy prawn fritters with chili dip—crunchy snack.', where:'Jonker Walk Night Market (RM3-5; halal vendor near clock tower).', addr:'Jalan Hang Jebat, near Stadthuys, 75200 Melaka (night market, Fri-Sun)', hrs:'6 PM-12 AM, Fri-Sun'},
+    {dish:'Durian Cendol', desc:'Classic cendol with a durian twist—seasonal treat.', where:'Bibik Neo Cendol (RM7; small stall, big flavor).', addr:'115, Jalan Hang Jebat, 75200 Melaka', hrs:'12 PM-6 PM, daily'},
+    {dish:'Nasi Kerabu', desc:'Blue-tinted rice with herbs, salted egg, and spicy chicken.', where:'Warung Makan Melayu (RM10; authentic Malay stall).', addr:'15, Jalan Hang Kasturi, 75200 Melaka', hrs:'11 AM-8 PM, daily'},
+    {dish:'Ayam Percik', desc:'Grilled chicken slathered in creamy, spicy coconut sauce.', where:'Restoran Seri Maujud (RM12; cozy, family-run).', addr:'22, Jalan Tukang Besi, 75200 Melaka', hrs:'12 PM-9 PM, daily (closed Fridays 12-2 PM)'} ,
+    {dish:'Laksa Johor', desc:'Spaghetti-like noodles in tangy fish gravy—Melaka twist.', where:'Warung Laksa Asam (RM8; small stall, big flavor).', addr:'5, Jalan Hang Lekir, 75200 Melaka', hrs:'10 AM-6 PM, daily'},
+    {dish:'Kuih Lopes', desc:'Sticky rice cake with gula melaka syrup and coconut.', where:'Jonker Walk Night Market (RM3; halal kuih stall).', addr:'Jalan Hang Jebat, 75200 Melaka (night market, Fri-Sun)', hrs:'6 PM-12 AM, Fri-Sun'},
+    {dish:'Sup Kambing', desc:'Hearty mutton soup with spices, served with bread.', where:'Medan Makan Boon Leong (RM15; near Jonker).', addr:'17, Jalan Hang Jebat, 75200 Melaka', hrs:'5 PM-10 PM, daily'},
+    {dish:'Roti John', desc:'Baguette with egg, chicken, and chili sauce—fusion snack.', where:'Jonker Walk Night Market (RM6; halal vendor near Jalan Hang Lekiu).', addr:'Jalan Hang Jebat, near Jalan Hang Lekiu, 75200 Melaka (night market, Fri-Sun)', hrs:'6 PM-12 AM, Fri-Sun'},
+    {dish:'Prawn Sambal Petai', desc:'Spicy prawns with pungent petai beans, served with rice.', where:'Restoran Nyonya Lin (RM15; pork-free Nyonya).', addr:'34, Jalan Tukang Emas, 75200 Melaka', hrs:'11 AM-8 PM, daily'},
+    {dish:'Teh Tarik Madu', desc:'Frothy pulled tea with a honey twist—perfect nightcap.', where:'Warung Minuman Pak Din (RM4; night market drink stall).', addr:'Jalan Hang Jebat, 75200 Melaka (night market, Fri-Sun)', hrs:'6 PM-12 AM, Fri-Sun'}
+  ];
+
+  const NON = [
+    {dish:'Nyonya Pork Dishes', desc:'Pork rendang or babi pongteh (stewed pork with fermented beans).', where:'Nancy’s Kitchen (RM18; Peranakan classic).', addr:'13, Jalan KL 3/8, Taman Kota Laksamana, Seksyen 3, 75200 Melaka', hrs:'Mon, Wed-Thu: 11 AM-5 PM; Fri-Sun: 11 AM-9 PM (closed Tue)'} ,
+    {dish:'Chicken Rice Balls', desc:'Hainanese-style with roasted pork add-ons.', where:'Hoe Kee Chicken Rice (RM10; non-halal version).', addr:'468, Jalan Hang Jebat, 75200 Melaka', hrs:'9 AM-4:30 PM daily (closed Thu)'} ,
+    {dish:'Satay Celup', desc:'Skewers dipped in pork-based satay sauce—fondue style.', where:'Ban Lee Siang (RM20-30; group-friendly).', addr:'45-E, Jalan Ong Kim Wee, 75300 Melaka', hrs:'4 PM-12 AM daily'},
+    {dish:'Dim Sum', desc:'Pork siu mai and char siew buns, morning-only.', where:'Low Yong Moh Restaurant (RM10-15; traditional).', addr:'32, Jalan Tukang Emas, 75200 Melaka', hrs:'5:30 AM-1 PM daily (closed Tue)'} ,
+    {dish:'Prawn Noodle', desc:'Rich pork-shrimp broth with noodles.', where:'Hup Huat Hainanese Prawn Noodle (RM12; nearby).', addr:'101, Jalan SP Taman Semabok Perdana, 75050 Melaka', hrs:'7 AM-6 PM daily'},
+    {dish:'Chendul', desc:'Non-halal version with pork fat in some recipes.', where:'Nyonya Makko (RM6; richer taste).', addr:'123, Jalan Merdeka, Taman Melaka Raya, 75000 Melaka', hrs:'11:30 AM-2:30 PM, 6-9:15 PM daily (closed Tue)'} ,
+    {dish:'Pork Satay', desc:'Grilled pork skewers with richer, non-halal peanut sauce.', where:'Capitol Satay (RM1-2/stick; near Jonker).', addr:'41, Lorong Bukit Cina, 75100 Melaka', hrs:'5 PM-12 AM daily'},
+    {dish:'Hainanese Pork Chop', desc:'Crispy pork cutlet with tangy sauce, served with rice.', where:'Jonker Street Hawker Centre (RM15; non-halal stall).', addr:'Jalan Hang Jebat (behind Jonker Walk Stage), 75200 Melaka', hrs:'6 PM-10 PM daily'},
+    {dish:'Nyonya Pai Tee', desc:'Crispy cups with turnip and pork topping—Peranakan snack.', where:'Amy Heritage Nyonya Cuisine (RM10 for 4; traditional).', addr:'75, Jalan Melaka Raya 24, Taman Melaka Raya, 75000 Melaka', hrs:'11:30 AM-2:30 PM, 6-9:30 PM (closed Mon)'} ,
+    {dish:'Char Siew Rice', desc:'Sticky, caramelized BBQ pork over rice.', where:'Restoran Famosa Chicken Rice (RM12; non-halal twist).', addr:'28, Jalan Hang Kasturi, 75200 Melaka', hrs:'9:30 AM-4 PM daily'},
+    {dish:'Siew Yoke', desc:'Crispy roast pork with crackling skin, served with chili.', where:'Restoran Chan Meng Kee (RM15; Chinatown vibe).', addr:'20, Jalan Tukang Emas, 75200 Melaka', hrs:'8 AM-4 PM daily'},
+    {dish:'Pork Mee Sua', desc:'Thin noodles in pork broth with minced pork.', where:'Kedai Makanan & Minuman Pak Putera (RM10; hole-in-the-wall).', addr:'12, Jalan Hang Lekiu, 75200 Melaka', hrs:'11 AM-6 PM daily'},
+    {dish:'Curry Debal', desc:'Portuguese spicy pork curry with vinegar kick.', where:'Restoran de Costa’s (RM18; Portuguese Settlement, 10-min walk).', addr:'Lot 8, Medan Selera Portuguese Settlement, 18 Jalan Daranjo, Ujong Pasir, 75050 Melaka', hrs:'5 PM-11 PM (Wed-Mon, closed Tue)'} ,
+    {dish:'Lor Bak', desc:'Fried pork rolls wrapped in tofu skin with dipping sauce.', where:'Jonker Street Hawker Centre (RM8; non-halal stall).', addr:'Jalan Hang Jebat (behind Jonker Walk Stage), 75200 Melaka', hrs:'6 PM-10 PM daily'},
+    {dish:'Pork Vindaloo', desc:'Portuguese-Indian spicy pork curry with rice.', where:'Restoran de Lisbon (RM18; Portuguese Settlement, 10-min walk).', addr:'12, Jalan Kubu, 75200 Melaka', hrs:'1 PM-11 PM daily'},
+    {dish:'Hakka Yong Tau Foo', desc:'Tofu and veggies stuffed with pork paste in broth.', where:'Restoran Yong Tau Foo Hakka (RM12; Chinatown spot).', addr:'8, Jalan Kampung Pantai, 75200 Melaka', hrs:'7 AM-2 PM daily'},
+    {dish:'Pork Knuckle', desc:'Braised pork knuckle with soy sauce and rice.', where:'Restoran Lee (RM20; hearty, old-school).', addr:'29, Jalan Hang Kasturi, 75200 Melaka', hrs:'11 AM-5 PM daily'},
+    {dish:'Nyonya Chap Chye', desc:'Mixed veggie stew with pork and shrimp paste.', where:'Restoran Peranakan Place (RM15; heritage shophouse).', addr:'54, Jalan Hang Jebat, 75200 Melaka', hrs:'11:30 AM-9 PM daily'},
+    {dish:'Pork Wanton Mee', desc:'Springy noodles with pork dumplings and char siew.', where:'Kedai Makan Ho Jiak (RM10; no-frills).', addr:'10, Jalan Tukang Besi, 75200 Melaka', hrs:'8 AM-3 PM daily'},
+    {dish:'Sambal Stingray', desc:'Grilled stingray with non-halal sambal (pork fat base).', where:'Jonker Street Hawker Centre (RM18; non-halal stall).', addr:'Jalan Hang Jebat (behind Jonker Walk Stage), 75200 Melaka', hrs:'6 PM-10 PM daily'},
+    {dish:'Pork Satay Burger', desc:'Fusion pork patty with satay sauce in a bun.', where:'The Baboon House (RM15; quirky cafe).', addr:'89, Jalan Tun Tan Cheng Lock, 75200 Melaka', hrs:'Mon, Wed-Thu: 10 AM-5 PM; Fri-Sun: 10 AM-9 PM (closed Tue)'} ,
+    {dish:'Bak Chang', desc:'Sticky rice dumplings with pork and chestnut.', where:'Jonker Walk Night Market (RM5; non-halal stall).', addr:'Jalan Hang Jebat, 75200 Melaka (night market, Fri-Sun)', hrs:'6 PM-12 AM, Fri-Sun'}
+  ];
+
+  // Optional image URL per outlet. If missing, a generated placeholder will be used.
+  const IMAGE_MAP = {
+    'Chung Wah Chicken Rice': '',
+    'Jonker 88': '',
+    'Asam Pedas Selera Kampung': '',
+    'Baba Charlie Nyonya Cake': '',
+    'Warung Ikan Bakar Umbai': '',
+    'Ole Sayang': '',
+    'Restoran Hajjah Mona': '',
+    'Restoran Nyonya Suan': '',
+    'Bibik Neo Cendol': '',
+    'Warung Makan Melayu': '',
+    'Restoran Seri Maujud': '',
+    'Warung Laksa Asam': '',
+    'Medan Makan Boon Leong': '',
+    'Restoran Nyonya Lin': '',
+    'Warung Minuman Pak Din': '',
+    'Nancy’s Kitchen': '',
+    'Hoe Kee Chicken Rice': '',
+    'Ban Lee Siang': '',
+    'Low Yong Moh Restaurant': '',
+    'Hup Huat Hainanese Prawn Noodle': '',
+    'Nyonya Makko': '',
+    'Capitol Satay': '',
+    'Jonker Street Hawker Centre': '',
+    'Amy Heritage Nyonya Cuisine': '',
+    'Restoran Famosa Chicken Rice': '',
+    'Restoran Chan Meng Kee': '',
+    'Kedai Makanan & Minuman Pak Putera': '',
+    'Restoran de Costa’s': '',
+    'Restoran de Lisbon': '',
+    'Restoran Yong Tau Foo Hakka': '',
+    'Restoran Lee': '',
+    'Restoran Peranakan Place': '',
+    'Kedai Makan Ho Jiak': '',
+    'The Baboon House': ''
+  };
+
+  function parseOutletName(where){
+    // Extract outlet name from "Name (RM...)"
+    const m = where.match(/^(.*?)(\s*\()/);
+    return m ? m[1].trim() : where;
+  }
+  function gmapsLink(addr){
+    return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(addr)}`;
+  }
+  function genPlaceholder(name){
+    const bg = encodeURIComponent('#162a69');
+    const text = encodeURIComponent(name);
+    const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='800' height='450'>\
+      <defs>\
+        <linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>\
+          <stop offset='0%' stop-color='#0e1f4f'/>\
+          <stop offset='100%' stop-color='#081436'/>\
+        </linearGradient>\
+      </defs>\
+      <rect fill='url(#g)' width='100%' height='100%'/>\
+      <text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='Segoe UI, Roboto, Helvetica' font-size='44' fill='#cfe5ff' opacity='.92'>${text}</text>\
+    </svg>`;
+    return `data:image/svg+xml;utf8,${svg}`;
+  }
+
+  function card(item, tag){
+    const outlet = parseOutletName(item.where);
+    const img = IMAGE_MAP[outlet] || genPlaceholder(outlet);
+    const klass = tag==='halal' ? 'halal' : 'non';
+    const isNight = night(item.addr) || night(item.hrs);
+    const hours = item.hrs;
+    return `<article class="card" data-night="${isNight}">
+      <div class="thumb">
+        <img loading="lazy" alt="${outlet}" src="${img}">
+        <div class="badge ${klass}">${tag==='halal'?I18N[LANG].halal:I18N[LANG].nonHalal}</div>
+      </div>
+      <div class="content">
+        <h3 class="dish">${item.dish}</h3>
+        <p class="desc">${item.desc}</p>
+        <div class="where"><strong>${I18N[LANG].where}:</strong> ${item.where}</div>
+        <div class="meta">
+          <div><strong>${I18N[LANG].address}:</strong> <a target="_blank" rel="noopener" href="${gmapsLink(item.addr)}">${item.addr}</a></div>
+          <div><strong>${I18N[LANG].open}:</strong> ${hours}</div>
+        </div>
+      </div>
+    </article>`;
+  }
+
+  // ------------------ Render ------------------
+  let activeTab = 'all';
+  function render(){
+    const q = document.getElementById('q').value.trim().toLowerCase();
+    const time = document.getElementById('time').value;
+    const sort = document.getElementById('sort').value;
+
+    const addTags = (arr, tag)=> arr.map(x=>({...x, tag}));
+    let all = [...addTags(HALAL,'halal'), ...addTags(NON,'non')];
+
+    // Filter by tab
+    if(activeTab==='halal') all = all.filter(x=>x.tag==='halal');
+    if(activeTab==='non') all = all.filter(x=>x.tag==='non');
+    if(activeTab==='night') all = all.filter(x=> night(x.addr) || night(x.hrs));
+
+    // Filter by time of day (loose heuristic)
+    if(time!=='any'){
+      all = all.filter(x=>{
+        const flags = daySlot(x.hrs);
+        if(time==='morning') return flags.morning;
+        if(time==='day') return flags.day;
+        if(time==='evening') return flags.evening;
+      });
+    }
+
+    // Search
+    if(q){
+      all = all.filter(x=> [x.dish, x.where, x.addr, x.desc].join(' ').toLowerCase().includes(q));
+    }
+
+    // Sort
+    if(sort==='name') all.sort((a,b)=> a.dish.localeCompare(b.dish));
+    if(sort==='area') all.sort((a,b)=> a.addr.localeCompare(b.addr));
+
+    // Paint
+    const html = all.map(x=> card(x, x.tag)).join('');
+    document.getElementById('grid').innerHTML = html || `<div class="muted">No results. Try broadening your filters.</div>`;
+  }
+
+  // ------------------ Events ------------------
+  document.getElementById('q').addEventListener('input', render);
+  document.getElementById('time').addEventListener('change', render);
+  document.getElementById('sort').addEventListener('change', render);
+  document.querySelectorAll('.tab').forEach(t=>{
+    t.addEventListener('click',()=>{
+      document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+      t.classList.add('active');
+      activeTab = t.dataset.tab;
+      render();
+    });
+  });
+
+  document.getElementById('lang-en').addEventListener('click',()=>{ LANG='en'; toggleLangBtns(); applyI18N(); render(); });
+  document.getElementById('lang-ms').addEventListener('click',()=>{ LANG='ms'; toggleLangBtns(); applyI18N(); render(); });
+  function toggleLangBtns(){
+    document.querySelectorAll('.lang-toggle button').forEach(b=>b.classList.remove('active'));
+    const id = LANG==='en' ? 'lang-en' : 'lang-ms';
+    const other = LANG==='en' ? 'lang-ms' : 'lang-en';
+    document.getElementById(id).classList.add('active');
+    document.getElementById(id).setAttribute('aria-pressed','true');
+    document.getElementById(other).setAttribute('aria-pressed','false');
+  }
+
+  // First render
+  applyI18N();
+  render();
+  </script>
+</body>
+</html>
