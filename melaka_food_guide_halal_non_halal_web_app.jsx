@@ -58,7 +58,7 @@ const HALAL = [
   { dish: "Sup Kambing", description: "Hearty mutton soup with spices, served with bread.", place: "Medan Makan Boon Leong (RM15; near Jonker)", address: "17, Jalan Hang Jebat, 75200 Melaka", hours: "5 PM-10 PM, daily", image: ph(20) },
   { dish: "Roti John", description: "Baguette with egg, chicken, and chili sauce—fusion snack.", place: "Jonker Walk Night Market (RM6; halal vendor near Jalan Hang Lekiu)", address: "Jalan Hang Jebat, near Jalan Hang Lekiu, 75200 Melaka (night market, Fri-Sun)", hours: "6 PM-12 AM, Fri-Sun", image: ph(21) },
   { dish: "Prawn Sambal Petai", description: "Spicy prawns with pungent petai beans, served with rice.", place: "Restoran Nyonya Lin (RM15; pork-free Nyonya)", address: "34, Jalan Tukang Emas, 75200 Melaka", hours: "11 AM-8 PM, daily", image: ph(22) },
-  { dish: "Teh Tarik Madu", description: "Frothy pulled tea with a honey twist—perfect nightcap.", place: "Warung Minuman Pak Din (RM4; night market drink stall)", address: "Jalan Hang Jebat, 75200 Melaka (night market, Fri-Sun)", hours: "6 PM-12 AM, Fri-Sun", image: ph(23) },
+  { dish: "Teh Tarik Madu", description: "Frothy pulled tea with a honey twist—perfect nightcap.", place: "Warung Minuman Pak Din (RM4; night market drink stall)", address: "Jalan Hang Jebat, 75200 Melaka (night market, Fri-Sun)", hours: "6 PM-12 AM, Fri-Sun", image: .github/workflows/image.png },
 ];
 
 const NON_HALAL = [
