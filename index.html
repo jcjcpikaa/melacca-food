@@ -6,7 +6,7 @@
   <title>Melaka Food Guide – Halal & Non-Halal</title>
   <style>
     :root{
-      --bg: #0b1020;         /* deep nasdfgdsgsddgdfsgvy */
+      --bg: #0b1020;         /* deep navy */
       --card: #121936;       /* indigo */
       --muted: #93a4c4;      /* muted text */
       --text: #eaf0ff;       /* main text */
@@ -118,7 +118,9 @@
 
     <footer>
       <div class="tiny">
-        Tip: Click an address to open Google Maps. Images are placeholders; replace <code>image</code> URLs in the data section to show real restaurant pictures. UI language toggles English ↔ Bahasa Melayu.
+        Tip: Click an address to open Google Maps. Images are placeholders unless a URL is provided in the data section. Some photos are preloaded from Wikimedia Commons under Creative Commons licenses. UI language toggles English ↔ Bahasa Melayu.
+        
+        <div style="margin-top:8px">Attributions: Ole Sayang photo © Chongkian, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>; Chicken rice balls photo © Yun Huang Yong, <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>; Jonker Walk street photo © Orderinchaos, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>. Image files served via Wikimedia Commons.</div>
       </div>
     </footer>
   </main>
@@ -206,40 +208,51 @@
 
   // Optional image URL per outlet. If missing, a generated placeholder will be used.
   const IMAGE_MAP = {
+    // —— Halal ——
     'Chung Wah Chicken Rice': 'https://eatosaurusrex.com/2012/12/04/chung-wah-exterior.jpg',
-    'Jonker 88': '',
-    'Asam Pedas Selera Kampung': '',
-    'Baba Charlie Nyonya Cake': '',
-    'Warung Ikan Bakar Umbai': '',
-    'Ole Sayang': '',
-    'Restoran Hajjah Mona': '',
-    'Restoran Nyonya Suan': '',
-    'Bibik Neo Cendol': '',
-    'Warung Makan Melayu': '',
-    'Restoran Seri Maujud': '',
-    'Warung Laksa Asam': '',
-    'Medan Makan Boon Leong': '',
-    'Restoran Nyonya Lin': '',
-    'Warung Minuman Pak Din': '',
-    'Nancy’s Kitchen': '',
-    'Hoe Kee Chicken Rice': '',
-    'Ban Lee Siang': '',
-    'Low Yong Moh Restaurant': '',
-    'Hup Huat Hainanese Prawn Noodle': '',
-    'Nyonya Makko': '',
-    'Capitol Satay': '',
-    'Jonker Street Hawker Centre': '',
-    'Amy Heritage Nyonya Cuisine': '',
-    'Restoran Famosa Chicken Rice': '',
-    'Restoran Chan Meng Kee': '',
-    'Kedai Makanan & Minuman Pak Putera': '',
-    'Restoran de Costa’s': '',
-    'Restoran de Lisbon': '',
-    'Restoran Yong Tau Foo Hakka': '',
-    'Restoran Lee': '',
-    'Restoran Peranakan Place': '',
-    'Kedai Makan Ho Jiak': '',
-    'The Baboon House': ''
+    'Jonker 88': 'https://static.wixstatic.com/media/ee8e9b_8a23a4e99d6f4df1a28a74ea1fe13f6f~mv2.jpeg/v1/fill/w_568,h_394,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/ee8e9b_8a23a4e99d6f4df1a28a74ea1fe13f6f~mv2.jpeg',
+    'Asam Pedas Selera Kampung': 'https://melaka.96network.com/wp-content/uploads/2022/06/Asam-Pedas-Selera-Kampung-hang-kasturi27l-1024x768.jpg',
+    'Baba Charlie Nyonya Cake': 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiIom-40F4IRho4q6kxFc21s1Mw0Y3jqPganz4_FPnUlt34U6cbnaQRwT__AG3W_xKLbV0pEPb_cnZEVZAkT7q8cn-L6V08KqszHJGNP8-cJFGFeaEozC6d9la_zXfqfEHBbQ3ced7fV8z6/s1600/IMG_6248.jpg',
+    'Warung Ikan Bakar Umbai': 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/07/1d/4e/89/umbai-grilled-fish.jpg?w=900&h=500&s=1',
+    'Ole Sayang': 'https://media-cdn.tripadvisor.com/media/photo-p/07/e5/87/65/ole-sayang.jpg',
+    'Restoran Hajjah Mona': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWFzarXjep8UdXBmPbVI1PEN1b4FNQ9kXe1Q&s',
+    'Restoran Nyonya Suan': 'https://www.gomelaka.my/site/wp-content/uploads/2013/07/suan1-2.jpg',
+    'Bibik Neo Cendol': 'https://media-cdn.tripadvisor.com/media/photo-s/09/7c/dc/ca/bibik-house-chendol.jpg',
+    'Warung Makan Melayu': 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Nasi_kerabu.jpg/1024px-Nasi_kerabu.jpg',
+    'Restoran Seri Maujud': 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Ayam_Percik.jpg/1024px-Ayam_Percik.jpg',
+    'Warung Laksa Asam': 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Laksa_johor.jpg/1024px-Laksa_johor.jpg',
+    'Medan Makan Boon Leong': 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Sup_kambing_Singapore.jpg/1024px-Sup_kambing_Singapore.jpg',
+    'Restoran Nyonya Lin': 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Petai_Sambal.JPG/1024px-Petai_Sambal.JPG',
+    'Warung Minuman Pak Din': 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Teh_Tarik_Malaysia.jpg/1024px-Teh_Tarik_Malaysia.jpg',
+    'Mee Goreng (generic)': 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Mie_goreng_Jakarta.JPG/1024px-Mie_goreng_Jakarta.JPG',
+    'Rojak Mamak (generic)': 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Penang_Rojak.jpg/1024px-Penang_Rojak.jpg',
+    'Popiah Basah (generic)': 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Popiah2.jpg/1024px-Popiah2.jpg',
+    'Prawn Fritters (Cucur Udang) (generic)': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Cucur_udang.jpg/1024px-Cucur_udang.jpg',
+    'Durian Cendol (generic)': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Cendol_Durian.JPG/1024px-Cendol_Durian.JPG',
+    'Kuih Lopes (generic)': 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Kuih_Lopes.jpg/1024px-Kuih_Lopes.jpg',
+
+    // —— Non‑Halal ——
+    'Nancy’s Kitchen': 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Babi_Pongteh.JPG/1024px-Babi_Pongteh.JPG',
+    'Hoe Kee Chicken Rice': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Hainanese_chicken_rice_with_roast_pork.jpg/1024px-Hainanese_chicken_rice_with_roast_pork.jpg',
+    'Ban Lee Siang': 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Satay_celup.jpg/1024px-Satay_celup.jpg',
+    'Low Yong Moh Restaurant': 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Siu_Mai_2.jpg/1024px-Siu_Mai_2.jpg',
+    'Hup Huat Hainanese Prawn Noodle': 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Prawn_noodle_soup.jpg/1024px-Prawn_noodle_soup.jpg',
+    'Nyonya Makko': 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Cendol_dengan_gula_melaka.jpg/1024px-Cendol_dengan_gula_melaka.jpg',
+    'Capitol Satay': 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/BBQ_pork_satay.jpg/1024px-BBQ_pork_satay.jpg',
+    'Jonker Street Hawker Centre': 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Jonker_Walk_Night_Market%2C_Melaka.jpg/1024px-Jonker_Walk_Night_Market%2C_Melaka.jpg',
+    'Amy Heritage Nyonya Cuisine': 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Pai_Tee.jpg/1024px-Pai_Tee.jpg',
+    'Restoran Famosa Chicken Rice': 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Famosa_Chicken_Rice_Ball_Restaurant%2C_Melaka.jpg/1024px-Famosa_Chicken_Rice_Ball_Restaurant%2C_Melaka.jpg',
+    'Restoran Chan Meng Kee': 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Siew_yuk_at_fong_fong.jpg/1024px-Siew_yuk_at_fong_fong.jpg',
+    'Kedai Makanan & Minuman Pak Putera': 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Wheat_noodles_in_clear_soup_with_minced_pork.jpg/1024px-Wheat_noodles_in_clear_soup_with_minced_pork.jpg',
+    'Restoran de Costa’s': 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Curry_Debal.jpg/1024px-Curry_Debal.jpg',
+    'Lor Bak (generic)': 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Loh_Bak_Penang.jpg/1024px-Loh_Bak_Penang.jpg',
+    'Restoran de Lisbon': 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Vindaloo.jpg/1024px-Vindaloo.jpg',
+    'Restoran Yong Tau Foo Hakka': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Yong_Tau_Foo.jpg/1024px-Yong_Tau_Foo.jpg',
+    'Restoran Lee': 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Braised_pork_leg%2C_choi_sum%2C_pickle.jpg/1024px-Braised_pork_leg%2C_choi_sum%2C_pickle.jpg',
+    'Restoran Peranakan Place': 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Chap_Chye.JPG/1024px-Chap_Chye.JPG',
+    'Kedai Makan Ho Jiak': 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Hong_Kong_Wonton_Noodles_01.jpg/1024px-Hong_Kong_Wonton_Noodles_01.jpg',
+    'The Baboon House': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Jalan_Tun_Tan_Cheng_Lock_Melaka.jpg/1024px-Jalan_Tun_Tan_Cheng_Lock_Melaka.jpg',
+    'Bak Chang (generic)': 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Bak_chang%2C_Zongzi%2C_Rice_dumpling.jpg/1024px-Bak_chang%2C_Zongzi%2C_Rice_dumpling.jpg'
   };
 
   function parseOutletName(where){
@@ -358,5 +371,3 @@
   </script>
 </body>
 </html>
-
-
