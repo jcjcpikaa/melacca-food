@@ -120,8 +120,6 @@
       <div class="tiny">
         Tip: Click an address to open Google Maps. Images are placeholders unless a URL is provided in the data section. Some photos are preloaded from Wikimedia Commons under Creative Commons licenses. UI language toggles English ↔ Bahasa Melayu.
         
-        <div style="margin-top:8px">Attributions: Ole Sayang photo © Chongkian, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>; Chicken rice balls photo © Yun Huang Yong, <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>; Jonker Walk street photo © Orderinchaos, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>. Image files served via Wikimedia Commons.</div>
-      </div>
     </footer>
   </main>
 
@@ -155,34 +153,38 @@
     }
   }
 
-  const HALAL = [
-    {dish:'Chicken Rice Balls', desc:'Sticky rice balls with poached chicken and chili sauce—Melaka’s signature.', where:'Chung Wah Chicken Rice (RM8-12).', addr:'18, Jalan Hang Jebat, 75200 Melaka', hrs:'10 AM-3 PM, daily (closed when sold out)'} ,
-    {dish:'Nyonya Laksa', desc:'Creamy, spicy coconut noodle soup with prawns and fish cake.', where:'Jonker 88 (RM10, Nyonya).', addr:'88, Jalan Hang Jebat, 75200 Melaka', hrs:'11 AM-10 PM, daily'},
-    {dish:'Cendol', desc:'Shaved ice with pandan jelly, gula melaka, and coconut milk.', where:'Jonker 88 (RM5; same spot, quick dessert).', addr:'88, Jalan Hang Jebat, 75200 Melaka', hrs:'11 AM-10 PM, daily'},
-    {dish:'Asam Pedas', desc:'Sour-spicy fish curry with rice, often with stingray.', where:'Asam Pedas Selera Kampung (RM15; nearby, authentic).', addr:'7, Jalan Kampung Hulu, 75200 Melaka', hrs:'11 AM-8 PM, daily (closed Mondays)'} ,
-    {dish:'Kuih Nyonya', desc:'Colorful Peranakan sweets like onde-onde or kuih lapis.', where:'Baba Charlie Nyonya Cake (RM2-5; takeaway stall).', addr:'72, Jalan Tengkera Pantai 2C, 75200 Melaka', hrs:'9 AM-5 PM, daily'},
-    {dish:'Satay', desc:'Grilled chicken or beef skewers with peanut sauce.', where:'Jonker Walk Night Market (RM1-2/stick; halal stalls).', addr:'Jalan Hang Jebat, 75200 Melaka (night market, Fri-Sun)', hrs:'6 PM-12 AM, Fri-Sun'},
-    {dish:'Mee Goreng', desc:'Spicy stir-fried noodles with prawns or chicken.', where:'Medan Selera Jonker Walk (RM8; night market stall).', addr:'Jalan Hang Jebat, 75200 Melaka (night market, Fri-Sun)', hrs:'6 PM-12 AM, Fri-Sun'},
-    {dish:'Ikan Bakar', desc:'Grilled fish with sambal belacan, served with air asam (tamarind dip).', where:'Warung Ikan Bakar Umbai (RM15-20; 5-min walk, seafood haven).', addr:'10, Jalan Kampung Hulu, 75200 Melaka', hrs:'5 PM-10 PM, daily'},
-    {dish:'Rojak Mamak', desc:'Spicy fruit-vegetable salad with shrimp paste and peanuts.', where:'Jonker Walk Night Market (RM6; halal stall near Jalan Hang Lekir).', addr:'Jalan Hang Jebat, near Jalan Hang Lekir, 75200 Melaka (night market, Fri-Sun)', hrs:'6 PM-12 AM, Fri-Sun'},
-    {dish:'Otak-Otak', desc:'Spicy fish paste grilled in banana leaves—Nyonya style.', where:'Ole Sayang (RM8 for 3; pork-free Nyonya eatery).', addr:'198, Jalan Hang Jebat, 75200 Melaka', hrs:'11 AM-9 PM, daily (closed Tuesdays)'} ,
-    {dish:'Nasi Lemak Ayam Berempah', desc:'Coconut rice with spicy fried chicken and sambal.', where:'Restoran Hajjah Mona (RM10; traditional Malay).', addr:'6, Jalan Hang Kasturi, 75200 Melaka', hrs:'8 AM-8 PM, daily'},
-    {dish:'Popiah Basah', desc:'Fresh spring rolls with turnip, shrimp, and chili sauce.', where:'Medan Selera Jonker Walk (RM5; halal stall).', addr:'Jalan Hang Jebat, 75200 Melaka (night market, Fri-Sun)', hrs:'6 PM-12 AM, Fri-Sun'},
-    {dish:'Sotong Kangkung', desc:'Cuttlefish and water spinach with sweet-spicy peanut sauce.', where:'Restoran Nyonya Suan (RM12; cozy Nyonya spot).', addr:'23, Jalan Hang Lekiu, 75200 Melaka', hrs:'11:30 AM-9 PM, daily'},
-    {dish:'Prawn Fritters (Cucur Udang)', desc:'Crispy prawn fritters with chili dip—crunchy snack.', where:'Jonker Walk Night Market (RM3-5; halal vendor near clock tower).', addr:'Jalan Hang Jebat, near Stadthuys, 75200 Melaka (night market, Fri-Sun)', hrs:'6 PM-12 AM, Fri-Sun'},
-    {dish:'Durian Cendol', desc:'Classic cendol with a durian twist—seasonal treat.', where:'Bibik Neo Cendol (RM7; small stall, big flavor).', addr:'115, Jalan Hang Jebat, 75200 Melaka', hrs:'12 PM-6 PM, daily'},
-    {dish:'Nasi Kerabu', desc:'Blue-tinted rice with herbs, salted egg, and spicy chicken.', where:'Warung Makan Melayu (RM10; authentic Malay stall).', addr:'15, Jalan Hang Kasturi, 75200 Melaka', hrs:'11 AM-8 PM, daily'},
-    {dish:'Ayam Percik', desc:'Grilled chicken slathered in creamy, spicy coconut sauce.', where:'Restoran Seri Maujud (RM12; cozy, family-run).', addr:'22, Jalan Tukang Besi, 75200 Melaka', hrs:'12 PM-9 PM, daily (closed Fridays 12-2 PM)'} ,
-    {dish:'Laksa Johor', desc:'Spaghetti-like noodles in tangy fish gravy—Melaka twist.', where:'Warung Laksa Asam (RM8; small stall, big flavor).', addr:'5, Jalan Hang Lekir, 75200 Melaka', hrs:'10 AM-6 PM, daily'},
-    {dish:'Kuih Lopes', desc:'Sticky rice cake with gula melaka syrup and coconut.', where:'Jonker Walk Night Market (RM3; halal kuih stall).', addr:'Jalan Hang Jebat, 75200 Melaka (night market, Fri-Sun)', hrs:'6 PM-12 AM, Fri-Sun'},
-    {dish:'Sup Kambing', desc:'Hearty mutton soup with spices, served with bread.', where:'Medan Makan Boon Leong (RM15; near Jonker).', addr:'17, Jalan Hang Jebat, 75200 Melaka', hrs:'5 PM-10 PM, daily'},
-    {dish:'Roti John', desc:'Baguette with egg, chicken, and chili sauce—fusion snack.', where:'Jonker Walk Night Market (RM6; halal vendor near Jalan Hang Lekiu).', addr:'Jalan Hang Jebat, near Jalan Hang Lekiu, 75200 Melaka (night market, Fri-Sun)', hrs:'6 PM-12 AM, Fri-Sun'},
-    {dish:'Prawn Sambal Petai', desc:'Spicy prawns with pungent petai beans, served with rice.', where:'Restoran Nyonya Lin (RM15; pork-free Nyonya).', addr:'34, Jalan Tukang Emas, 75200 Melaka', hrs:'11 AM-8 PM, daily'},
-    {dish:'Teh Tarik Madu', desc:'Frothy pulled tea with a honey twist—perfect nightcap.', where:'Warung Minuman Pak Din (RM4; night market drink stall).', addr:'Jalan Hang Jebat, 75200 Melaka (night market, Fri-Sun)', hrs:'6 PM-12 AM, Fri-Sun'}
-  ];
+const HALAL = [
+  {dish:'Chicken Rice Balls', desc:'Sticky rice balls with poached chicken and chili sauce—Melaka’s signature.', where:'Chung Wah Chicken Rice (RM8-12).', addr:'18, Jalan Hang Jebat, 75200 Melaka', hrs:'10 AM-3 PM, daily (closed when sold out)'}, 
+  {dish:'Nyonya Laksa', desc:'Creamy, spicy coconut noodle soup with prawns and fish cake.', where:'Jonker 88 (RM10, Nyonya).', addr:'88, Jalan Hang Jebat, 75200 Melaka', hrs:'11 AM-10 PM, daily'},
+  {dish:'Cendol', desc:'Shaved ice with pandan jelly, gula melaka, and coconut milk.', where:'Jonker 88 (RM5; same spot, quick dessert).', addr:'88, Jalan Hang Jebat, 75200 Melaka', hrs:'11 AM-10 PM, daily'},
+  {dish:'Asam Pedas', desc:'Sour-spicy fish curry with rice, often with stingray.', where:'Asam Pedas Selera Kampung (RM15; nearby, authentic).', addr:'7, Jalan Kampung Hulu, 75200 Melaka', hrs:'11 AM-8 PM, daily (closed Mondays)'}, 
+  {dish:'Kuih Nyonya', desc:'Colorful Peranakan sweets like onde-onde or kuih lapis.', where:'Baba Charlie Nyonya Cake (RM2-5; takeaway stall).', addr:'72, Jalan Tengkera Pantai 2C, 75200 Melaka', hrs:'9 AM-5 PM, daily'},
+  {dish:'Satay', desc:'Grilled chicken or beef skewers with peanut sauce.', where:'Jonker Walk Night Market (RM1-2/stick; halal stalls).', addr:'Jalan Hang Jebat, 75200 Melaka (night market, Fri-Sun)', hrs:'6 PM-12 AM, Fri-Sun'},
+  {dish:'Ikan Bakar', desc:'Grilled fish with sambal belacan.', where:'Warung Ikan Bakar Umbai (RM15-20).', addr:'10, Jalan Kampung Hulu, 75200 Melaka', hrs:'5 PM-10 PM, daily'},
+  {dish:'Rojak Mamak', desc:'Spicy fruit-vegetable salad with shrimp paste and peanuts.', where:'Jonker Walk Night Market (RM6).', addr:'Jalan Hang Jebat, near Jalan Hang Lekir, 75200 Melaka', hrs:'6 PM-12 AM, Fri-Sun'},
+  {dish:'Otak-Otak', desc:'Spicy fish paste grilled in banana leaves—Nyonya style.', where:'Ole Sayang (RM8 for 3).', addr:'198, Jalan Hang Jebat, 75200 Melaka', hrs:'11 AM-9 PM, daily (closed Tuesdays)'}, 
+  {dish:'Nasi Lemak Ayam Berempah', desc:'Coconut rice with spicy fried chicken and sambal.', where:'Restoran Hajjah Mona (RM10).', addr:'6, Jalan Hang Kasturi, 75200 Melaka', hrs:'8 AM-8 PM, daily'},
+  {dish:'Popiah Basah', desc:'Fresh spring rolls with turnip, shrimp, and chili sauce.', where:'Medan Selera Jonker Walk (RM5).', addr:'Jalan Hang Jebat, 75200 Melaka', hrs:'6 PM-12 AM, Fri-Sun'},
+  {dish:'Sotong Kangkung', desc:'Cuttlefish and water spinach with sweet-spicy sauce.', where:'Restoran Nyonya Suan (RM12).', addr:'23, Jalan Hang Lekiu, 75200 Melaka', hrs:'11:30 AM-9 PM, daily'},
+  {dish:'Prawn Fritters', desc:'Crispy prawn fritters with chili dip.', where:'Jonker Walk Night Market (RM3-5).', addr:'Jalan Hang Jebat, near Stadthuys, 75200 Melaka', hrs:'6 PM-12 AM, Fri-Sun'},
+  {dish:'Durian Cendol', desc:'Classic cendol with a durian twist.', where:'Bibik Neo Cendol (RM7).', addr:'115, Jalan Hang Jebat, 75200 Melaka', hrs:'12 PM-6 PM, daily'},
+  {dish:'Kuih Lopes', desc:'Sticky rice cake with gula melaka syrup.', where:'Jonker Walk Night Market (RM3).', addr:'Jalan Hang Jebat, 75200 Melaka', hrs:'6 PM-12 AM, Fri-Sun'},
+  {dish:'Sup Kambing', desc:'Hearty mutton soup with spices.', where:'Medan Makan Boon Leong (RM15).', addr:'17, Jalan Hang Jebat, 75200 Melaka', hrs:'5 PM-10 PM, daily'},
+  {dish:'Roti John', desc:'Baguette with egg, chicken, and chili sauce.', where:'Jonker Walk Night Market (RM6).', addr:'Jalan Hang Jebat, 75200 Melaka', hrs:'6 PM-12 AM, Fri-Sun'},
+  {dish:'Prawn Sambal Petai', desc:'Spicy prawns with petai beans.', where:'Restoran Nyonya Lin (RM15).', addr:'34, Jalan Tukang Emas, 75200 Melaka', hrs:'11 AM-8 PM, daily'},
+  
+  // ——— NEW 7 RESTAURANTS ———
+  {dish:'Pandan Pancake', desc:'Fluffy pandan pancakes with gula melaka.', where:'The Daily Fix (RM18-25; pork-free café).', addr:'55, Jalan Hang Jebat, 75200 Melaka', hrs:'9 AM-5:30 PM, daily'},
+  {dish:'Butter Croissant', desc:'Flaky croissant paired with artisanal flower tea.', where:'The Butter (RM12-28; café).', addr:'38, Jalan Tukang Emas, 75200 Melaka', hrs:'8:30 AM-6 PM, closed Tue'},
+  {dish:'Almond Croissant', desc:'French-style croissant with almond filling.', where:'French Brown Viennoiserie (RM10-22).', addr:'98, Jalan Hang Jebat, 75200 Melaka', hrs:'8:30 AM-5:30 PM, daily'},
+  {dish:'Fresh Soya Bean', desc:'Silky tau fu fah and homemade soya milk.', where:'Tofu Street Fresh Soya Bean (RM3-5).', addr:'45, Jalan Kampung Pantai, 75100 Melaka', hrs:'11:30 AM-6 PM, daily'},
+  {dish:'Teapot Bubble Tea', desc:'Viral tiny-teapot bubble tea.', where:'Teapot Bubble Tea Stall (RM10-18).', addr:'Jalan Hang Jebat, 75200 Melaka', hrs:'6 PM-12 AM, Fri-Sun'},
+  {dish:'Cendol Special', desc:'Creamy cendol with extra toppings.', where:'Cendol Kampung Hulu (RM6-10).', addr:'No. 26, Makan Avenue, Jalan Kampung Hulu, 75200 Melaka', hrs:'11 AM-11 PM, daily'},
+  {dish:'Banana Leaf Rice', desc:'Authentic Chettinadu banana leaf curry set.', where:'Saravanan Chettinadu King (RM10-20).', addr:'18, Jalan Bendahara, 75100 Melaka', hrs:'8 AM-9 PM, daily'}
+];
 
   const NON = [
-    {dish:'Nyonya Pork Dishes', desc:'Pork rendang or babi pongteh (stewed pork with fermented beans).', where:'Nancy’s Kitchen (RM18; Peranakan classic).', addr:'13, Jalan KL 3/8, Taman Kota Laksamana, Seksyen 3, 75200 Melaka', hrs:'Mon, Wed-Thu: 11 AM-5 PM; Fri-Sun: 11 AM-9 PM (closed Tue)'} ,
+    {dish:'Nyonya Pork Dishes', desc:'Pork rendang or babi pongteh (stewed pork with fermented beans).', where:'Nancys Kitchen (RM18; Peranakan classic).', addr:'13, Jalan KL 3/8, Taman Kota Laksamana, Seksyen 3, 75200 Melaka', hrs:'Mon, Wed-Thu: 11 AM-5 PM; Fri-Sun: 11 AM-9 PM (closed Tue)'} ,
     {dish:'Chicken Rice Balls', desc:'Hainanese-style with roasted pork add-ons.', where:'Hoe Kee Chicken Rice (RM10; non-halal version).', addr:'468, Jalan Hang Jebat, 75200 Melaka', hrs:'9 AM-4:30 PM daily (closed Thu)'} ,
     {dish:'Satay Celup', desc:'Skewers dipped in pork-based satay sauce—fondue style.', where:'Ban Lee Siang (RM20-30; group-friendly).', addr:'45-E, Jalan Ong Kim Wee, 75300 Melaka', hrs:'4 PM-12 AM daily'},
     {dish:'Dim Sum', desc:'Pork siu mai and char siew buns, morning-only.', where:'Low Yong Moh Restaurant (RM10-15; traditional).', addr:'32, Jalan Tukang Emas, 75200 Melaka', hrs:'5:30 AM-1 PM daily (closed Tue)'} ,
@@ -194,66 +196,68 @@
     {dish:'Char Siew Rice', desc:'Sticky, caramelized BBQ pork over rice.', where:'Restoran Famosa Chicken Rice (RM12; non-halal twist).', addr:'28, Jalan Hang Kasturi, 75200 Melaka', hrs:'9:30 AM-4 PM daily'},
     {dish:'Siew Yoke', desc:'Crispy roast pork with crackling skin, served with chili.', where:'Restoran Chan Meng Kee (RM15; Chinatown vibe).', addr:'20, Jalan Tukang Emas, 75200 Melaka', hrs:'8 AM-4 PM daily'},
     {dish:'Pork Mee Sua', desc:'Thin noodles in pork broth with minced pork.', where:'Kedai Makanan & Minuman Pak Putera (RM10; hole-in-the-wall).', addr:'12, Jalan Hang Lekiu, 75200 Melaka', hrs:'11 AM-6 PM daily'},
-    {dish:'Curry Debal', desc:'Portuguese spicy pork curry with vinegar kick.', where:'Restoran de Costa’s (RM18; Portuguese Settlement, 10-min walk).', addr:'Lot 8, Medan Selera Portuguese Settlement, 18 Jalan Daranjo, Ujong Pasir, 75050 Melaka', hrs:'5 PM-11 PM (Wed-Mon, closed Tue)'} ,
-    {dish:'Lor Bak', desc:'Fried pork rolls wrapped in tofu skin with dipping sauce.', where:'Jonker Street Hawker Centre (RM8; non-halal stall).', addr:'Jalan Hang Jebat (behind Jonker Walk Stage), 75200 Melaka', hrs:'6 PM-10 PM daily'},
     {dish:'Pork Vindaloo', desc:'Portuguese-Indian spicy pork curry with rice.', where:'Restoran de Lisbon (RM18; Portuguese Settlement, 10-min walk).', addr:'12, Jalan Kubu, 75200 Melaka', hrs:'1 PM-11 PM daily'},
     {dish:'Hakka Yong Tau Foo', desc:'Tofu and veggies stuffed with pork paste in broth.', where:'Restoran Yong Tau Foo Hakka (RM12; Chinatown spot).', addr:'8, Jalan Kampung Pantai, 75200 Melaka', hrs:'7 AM-2 PM daily'},
-    {dish:'Pork Knuckle', desc:'Braised pork knuckle with soy sauce and rice.', where:'Restoran Lee (RM20; hearty, old-school).', addr:'29, Jalan Hang Kasturi, 75200 Melaka', hrs:'11 AM-5 PM daily'},
     {dish:'Nyonya Chap Chye', desc:'Mixed veggie stew with pork and shrimp paste.', where:'Restoran Peranakan Place (RM15; heritage shophouse).', addr:'54, Jalan Hang Jebat, 75200 Melaka', hrs:'11:30 AM-9 PM daily'},
-    {dish:'Pork Wanton Mee', desc:'Springy noodles with pork dumplings and char siew.', where:'Kedai Makan Ho Jiak (RM10; no-frills).', addr:'10, Jalan Tukang Besi, 75200 Melaka', hrs:'8 AM-3 PM daily'},
-    {dish:'Sambal Stingray', desc:'Grilled stingray with non-halal sambal (pork fat base).', where:'Jonker Street Hawker Centre (RM18; non-halal stall).', addr:'Jalan Hang Jebat (behind Jonker Walk Stage), 75200 Melaka', hrs:'6 PM-10 PM daily'},
     {dish:'Pork Satay Burger', desc:'Fusion pork patty with satay sauce in a bun.', where:'The Baboon House (RM15; quirky cafe).', addr:'89, Jalan Tun Tan Cheng Lock, 75200 Melaka', hrs:'Mon, Wed-Thu: 10 AM-5 PM; Fri-Sun: 10 AM-9 PM (closed Tue)'} ,
-    {dish:'Bak Chang', desc:'Sticky rice dumplings with pork and chestnut.', where:'Jonker Walk Night Market (RM5; non-halal stall).', addr:'Jalan Hang Jebat, 75200 Melaka (night market, Fri-Sun)', hrs:'6 PM-12 AM, Fri-Sun'}
-  ];
+    {dish:'Bak Chang', desc:'Sticky rice dumplings with pork and chestnut.', where:'Jonker Walk Night Market (RM5; non-halal stall).', addr:'Jalan Hang Jebat, 75200 Melaka (night market, Fri-Sun)', hrs:'6 PM-12 AM, Fri-Sun'},
+];
 
   // Optional image URL per outlet. If missing, a generated placeholder will be used.
   const IMAGE_MAP = {
-    // —— Halal ——
-    'Chung Wah Chicken Rice': 'https://eatosaurusrex.com/2012/12/04/chung-wah-exterior.jpg',
-    'Jonker 88': 'https://static.wixstatic.com/media/ee8e9b_8a23a4e99d6f4df1a28a74ea1fe13f6f~mv2.jpeg/v1/fill/w_568,h_394,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/ee8e9b_8a23a4e99d6f4df1a28a74ea1fe13f6f~mv2.jpeg',
-    'Asam Pedas Selera Kampung': 'https://melaka.96network.com/wp-content/uploads/2022/06/Asam-Pedas-Selera-Kampung-hang-kasturi27l-1024x768.jpg',
-    'Baba Charlie Nyonya Cake': 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiIom-40F4IRho4q6kxFc21s1Mw0Y3jqPganz4_FPnUlt34U6cbnaQRwT__AG3W_xKLbV0pEPb_cnZEVZAkT7q8cn-L6V08KqszHJGNP8-cJFGFeaEozC6d9la_zXfqfEHBbQ3ced7fV8z6/s1600/IMG_6248.jpg',
-    'Warung Ikan Bakar Umbai': 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/07/1d/4e/89/umbai-grilled-fish.jpg?w=900&h=500&s=1',
-    'Ole Sayang': 'https://media-cdn.tripadvisor.com/media/photo-p/07/e5/87/65/ole-sayang.jpg',
-    'Restoran Hajjah Mona': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWFzarXjep8UdXBmPbVI1PEN1b4FNQ9kXe1Q&s',
-    'Restoran Nyonya Suan': 'https://www.gomelaka.my/site/wp-content/uploads/2013/07/suan1-2.jpg',
-    'Bibik Neo Cendol': 'https://media-cdn.tripadvisor.com/media/photo-s/09/7c/dc/ca/bibik-house-chendol.jpg',
-    'Warung Makan Melayu': 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Nasi_kerabu.jpg/1024px-Nasi_kerabu.jpg',
-    'Restoran Seri Maujud': 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Ayam_Percik.jpg/1024px-Ayam_Percik.jpg',
-    'Warung Laksa Asam': 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Laksa_johor.jpg/1024px-Laksa_johor.jpg',
-    'Medan Makan Boon Leong': 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Sup_kambing_Singapore.jpg/1024px-Sup_kambing_Singapore.jpg',
-    'Restoran Nyonya Lin': 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Petai_Sambal.JPG/1024px-Petai_Sambal.JPG',
-    'Warung Minuman Pak Din': 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Teh_Tarik_Malaysia.jpg/1024px-Teh_Tarik_Malaysia.jpg',
-    'Mee Goreng (generic)': 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Mie_goreng_Jakarta.JPG/1024px-Mie_goreng_Jakarta.JPG',
-    'Rojak Mamak (generic)': 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Penang_Rojak.jpg/1024px-Penang_Rojak.jpg',
-    'Popiah Basah (generic)': 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Popiah2.jpg/1024px-Popiah2.jpg',
-    'Prawn Fritters (Cucur Udang) (generic)': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Cucur_udang.jpg/1024px-Cucur_udang.jpg',
-    'Durian Cendol (generic)': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Cendol_Durian.JPG/1024px-Cendol_Durian.JPG',
-    'Kuih Lopes (generic)': 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Kuih_Lopes.jpg/1024px-Kuih_Lopes.jpg',
 
-    // —— Non‑Halal ——
-    'Nancy’s Kitchen': 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Babi_Pongteh.JPG/1024px-Babi_Pongteh.JPG',
-    'Hoe Kee Chicken Rice': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Hainanese_chicken_rice_with_roast_pork.jpg/1024px-Hainanese_chicken_rice_with_roast_pork.jpg',
-    'Ban Lee Siang': 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Satay_celup.jpg/1024px-Satay_celup.jpg',
-    'Low Yong Moh Restaurant': 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Siu_Mai_2.jpg/1024px-Siu_Mai_2.jpg',
-    'Hup Huat Hainanese Prawn Noodle': 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Prawn_noodle_soup.jpg/1024px-Prawn_noodle_soup.jpg',
-    'Nyonya Makko': 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Cendol_dengan_gula_melaka.jpg/1024px-Cendol_dengan_gula_melaka.jpg',
-    'Capitol Satay': 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/BBQ_pork_satay.jpg/1024px-BBQ_pork_satay.jpg',
-    'Jonker Street Hawker Centre': 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Jonker_Walk_Night_Market%2C_Melaka.jpg/1024px-Jonker_Walk_Night_Market%2C_Melaka.jpg',
-    'Amy Heritage Nyonya Cuisine': 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Pai_Tee.jpg/1024px-Pai_Tee.jpg',
-    'Restoran Famosa Chicken Rice': 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Famosa_Chicken_Rice_Ball_Restaurant%2C_Melaka.jpg/1024px-Famosa_Chicken_Rice_Ball_Restaurant%2C_Melaka.jpg',
-    'Restoran Chan Meng Kee': 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Siew_yuk_at_fong_fong.jpg/1024px-Siew_yuk_at_fong_fong.jpg',
-    'Kedai Makanan & Minuman Pak Putera': 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Wheat_noodles_in_clear_soup_with_minced_pork.jpg/1024px-Wheat_noodles_in_clear_soup_with_minced_pork.jpg',
-    'Restoran de Costa’s': 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Curry_Debal.jpg/1024px-Curry_Debal.jpg',
-    'Lor Bak (generic)': 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Loh_Bak_Penang.jpg/1024px-Loh_Bak_Penang.jpg',
-    'Restoran de Lisbon': 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Vindaloo.jpg/1024px-Vindaloo.jpg',
-    'Restoran Yong Tau Foo Hakka': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Yong_Tau_Foo.jpg/1024px-Yong_Tau_Foo.jpg',
-    'Restoran Lee': 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Braised_pork_leg%2C_choi_sum%2C_pickle.jpg/1024px-Braised_pork_leg%2C_choi_sum%2C_pickle.jpg',
-    'Restoran Peranakan Place': 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Chap_Chye.JPG/1024px-Chap_Chye.JPG',
-    'Kedai Makan Ho Jiak': 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Hong_Kong_Wonton_Noodles_01.jpg/1024px-Hong_Kong_Wonton_Noodles_01.jpg',
-    'The Baboon House': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Jalan_Tun_Tan_Cheng_Lock_Melaka.jpg/1024px-Jalan_Tun_Tan_Cheng_Lock_Melaka.jpg',
-    'Bak Chang (generic)': 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Bak_chang%2C_Zongzi%2C_Rice_dumpling.jpg/1024px-Bak_chang%2C_Zongzi%2C_Rice_dumpling.jpg'
-  };
+  // —— Halal —— 
+  "Chung Wah Chicken Rice": "https://eatosaurusrex.com/2012/12/04/chung-wah-exterior.jpg",
+  "Jonker 88": "https://static.wixstatic.com/media/ee8e9b_8a23a4e99d6f4df1a28a74ea1fe13f6f~mv2.jpeg",
+  "Asam Pedas Selera Kampung": "https://melaka.96network.com/wp-content/uploads/2022/06/Asam-Pedas-Selera-Kampung-hang-kasturi27l-1024x768.jpg",
+  "Baba Charlie Nyonya Cake": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiIom-40F4IRho4q6kxFc21s1Mw0Y3jqPganz4_FPnUlt34U6cbnaQRwT__AG3W_xKLbV0pEPb_cnZEVZAkT7q8cn-L6V08KqszHJGNP8-cJFGFeaEozC6d9la_zXfqfEHBbQ3ced7fV8z6/s1600/IMG_6248.jpg",
+  "Warung Ikan Bakar Umbai": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/07/1d/4e/89/umbai-grilled-fish.jpg",
+  "Ole Sayang": "https://media-cdn.tripadvisor.com/media/photo-p/07/e5/87/65/ole-sayang.jpg",
+  "Restoran Hajjah Mona": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWFzarXjep8UdXBmPbVI1PEN1b4FNQ9kXe1Q&s",
+  "Restoran Nyonya Suan": "https://www.gomelaka.my/site/wp-content/uploads/2013/07/suan1-2.jpg",
+  "Bibik Neo Cendol": "https://media-cdn.tripadvisor.com/media/photo-s/09/7c/dc/ca/bibik-house-chendol.jpg",
+  "Medan Makan Boon Leong": "https://media-cdn.yummyadvisor.com/store/12b55b6d-3693-40bf-ad72-d74477f19e88.jpg",
+
+  // Snacks (match EXACT where: names)
+  "Jonker Walk Night Market": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/13/43/2a/06/photo0jpg.jpg",
+  "Medan Selera Jonker Walk": "https://i.ytimg.com/vi/ilSsn7w2ISo/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBvSNY68rqlXrygiN97SpjIxpVbjA",
+
+  // New cafés
+  "The Daily Fix": "https://melaka.96network.com/wp-content/uploads/2022/05/The-Daily-Fix-3.jpg",
+  "The Butter": "https://vulcanpost.com/wp-content/uploads/2023/09/The-Butter-melaka-malaysia-croissant-flower-tea-004.jpg",
+  "French Brown Viennoiserie": "https://static.wixstatic.com/media/ee8e9b_3f4781007c0a4b50a4121b445efc6eb8~mv2.jpeg",
+  "Tofu Street Fresh Soya Bean": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg8QzOrImiscbNMV6RuqQSV1YTed7f2k1Z04yySzDZaiYtQumf4Gu6Dm_KMahFOeKC_gmER4XqSw0_0oiAVCsUexs5uTILaXe_54miwPXPYu1cORSO21Xr-GcBEZrMOVwmsz3Kx3jqxUrE9vxAWouF63lhNhdxBKxrMgnEY4LLS0i3KY3M9AAHfKA/s1600/TofuStreet.jpg",
+  "Teapot Bubble Tea Stall": "https://dam.mediacorp.sg/image/upload/s--qq3XTqvF--/c_fill,g_auto,h_338,w_600/f_auto,q_auto/v1/mediacorp/8days/image/2024/09/14/msian_street_stall_sells_china_viral_bubble_tea_topped_with_tiny_real_steaming_teapot.jpg?itok=JPfKEMGe",
+  "Cendol Kampung Hulu": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/13/3d/6c/58/getlstd-property-photo.jpg",
+  "Saravanan Chettinadu King": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/03/3e/05/7e/restoran-saravanna.jpg",
+
+  // —— Non-Halal —— 
+  "Nancys Kitchen": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/09/4f/4a/96/we-read-your-comments.jpg",
+  "Hoe Kee Chicken Rice": "https://static.wixstatic.com/media/ee8e9b_d5aa0254bef44e7f8ae945c7134e0f06~mv2.jpeg",
+  "Ban Lee Siang": "https://onalulu.com/wp-content/uploads/2025/02/404575160_350985980909877_596771726627283266_n.jpg",
+  "Low Yong Moh Restaurant": "https://static.wixstatic.com/media/ee8e9b_b93c3753a1fb4e2b994107d3f2715243~mv2.jpeg",
+  "Hup Huat Hainanese Prawn Noodle": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMKwej-1jiyPkq_7PhXJnIoVBPP0ZzPf_6A0GlQ6l3N6i61JCPNhHHGmB4E2dUHLMJklo",
+  "Nyonya Makko": "https://melaka.96network.com/wp-content/uploads/2022/07/restoran-nyonya-makko-melaka.jpg",
+  "Capitol Satay": "https://thesmartlocal.my/wp-content/uploads/2021/09/CAPITOL-SATAY-CELUP-TO-CLOSE-1.jpeg",
+  "Amy Heritage Nyonya Cuisine": "https://static.where-e.com/Malaysia/Melaka/Amy-Heritage-Nyonya-Cuisine.jpg",
+  "Restoran Famosa Chicken Rice": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStZ9FQPl2MMMI7NRg6lgVHU5pV0XsGbgQDXg&s",
+  "Restoran Chan Meng Kee": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7f4Yfnwc4Ns7lSZ7aWbNo1svWG7RTiokwEw&s",
+  "Kedai Makanan & Minuman Pak Putera": "https://static.wixstatic.com/media/ee8e9b_81c0294f1a27479fbe72ad2ba449f0a5~mv2.jpeg",
+  "Restoran de Costas": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiQkTfN7bHTKb_sjf6zY-PLC-8XlmF6rai8L1APmEgAbsv2ZQ4ZrAiW0bDqCYv96t7QUVKr3pdCTPjD2VUdLZhQbPpQAn2KXKhDxXr1PWAlOYbYfdEjJm3B5E-OBxu-o1_smUnLQYQscYbOeV_V7KTjxwG7Dtoqv8_5OMlfmoGjzNT7eouHcZ25pKQL/s1600/restaurant.jpg",
+  "Restoran de Lisbon": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/07/19/7d/47/restoran-de-lisbon.jpg?w=800&h=500&s=1",
+  "Restoran Yong Tau Foo Hakka": "https://cdn4.premiumread.com/?url=https://malaymail.com/malaymail/uploads/images/2022/10/03/55082.jpg&w=1000&q=100&f=jpg&t=6",
+  "Restoran Lee": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Braised_pork_leg%2C_choi_sum%2C_pickle.jpg/1024px-Braised_pork_leg.jpg",
+"Restoran Peranakan Place": "https://static.wixstatic.com/media/4c7f55_d4175c4804294512bb1ce9023c48d666~mv2.jpg/v1/fill/w_516,h_573,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/129003028_10158987725299712_296536381541.jpg",
+  "Kedai Makan Ho Jiak": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Hong_Kong_Wonton_Noodles_01.jpg/1024px-Hong_Kong_Wonton_Noodles_01.jpg",
+  "The Baboon House": "https://www.gomelaka.my/site/wp-content/uploads/2014/09/baboon-house.jpg",
+  "Bak Chang": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1b/5b/09/a4/hokkien-rice-dumpling.jpg?w=1200&h=1200&s=1",
+  "Nyonya Pai Tee": "https://media-cdn.tripadvisor.com/media/photo-m/1280/23/94/35/00/pai-tee.jpg",
+"Jonker Street Hawker Centre": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/13/43/2a/06/photo0jpg.jpg",
+"Nyonya Pork Dishes": "https://www.expedia.com.sg/stories/wp-content/uploads/2022/07/pongteh-Best-Nyonya-Food-in-Melaka-1024x628-1.jpg",
+"Prawn Sambal Petai": "https://i.ytimg.com/vi/M5mY_rJI8jI/maxresdefault.jpg",
+"Amy Heritage Nyonya Cuisine": "https://media-cdn.tripadvisor.com/media/photo-m/1280/23/94/35/00/pai-tee.jpg",
+"Restoran Nyonya Lin": "https://i.ytimg.com/vi/M5mY_rJI8jI/maxresdefault.jpg",
+  }
 
   function parseOutletName(where){
     // Extract outlet name from "Name (RM...)"
